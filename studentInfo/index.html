@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<>
+
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+  <meta name="viewport" content="width=device-width, initial-scale=10., maximum-scale=1.0, user-scalable=no">
+  <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+  <meta http-equiv="Content-Security-Policy" content="img-src 'self' data: https://code.jquery.com; default-src * 'unsafe-inline'; style-src 'self' https://code.jquery.com 'unsafe-inline'; media-src *" />
+
+  <!-- region jQuery Mobile -->
+  <link rel = "stylesheet" href = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <script src = "https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <!-- endregion -->
+
+  <!-- region Firebase -->
+  <!--Firebase App is always required and must be first -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+
+  <!-- Add additional services that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <!-- endregion -->
+
+  <link rel="stylesheet" href="css/index.css">
+  <script src="studentInfo/js/index.js"></script>
+  <script src="studentInfo/js/facade.js"></script>
+
+  <title>Firebase Demo</title>
+<
+
+<body>
+<!-- region Read page-->
+<div id="pageRead" data-role="page">
+  <header data-role="header" data-position="fixed" data-theme="a">
+    <h1>Read</h1>
+    <div data-role="navbar" data-iconpos="top">
+      <ul>
+        <li><a href="#pageRead" data-icon="grid" class="ui-btn-active ui-state-persist">Read</a></li>
+        <li><a href="#pageWrite" data-icon="edit">Write</a></li>
+        <li><a href="#pageDelete" data-icon="delete">Delete</a></li>
+        <li><a href="#pageAddFaculty" data-icon="add">Add Faculty</a></li>
+        <li><a href="#viewFaculties" data-icon="add">List Faculties</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section data-role="content">
+    <div id="readDiv">
+      <h2>Once</h2>
+
+        <label for="txtStudentIdOnce">Student Id:</label>
+        <input type="text" id="txtStudentIdOnce" name="studentId" value="" data-mini="true" disabled>
+
+        <label for="txtFirstnameOnce">First Name:</label>
+        <input type="text" id="txtFirstnameOnce" name="firstName" value="" data-mini="true" disabled>
+
+        <label for="txtLastnameOnce">Last Name:</label>
+        <input type="text" id="txtLastnameOnce" name="lastName" value="" data-mini="true" disabled>
+
+      <h2>On</h2>
+        <label for="txtStudentIdOn">Student Id:</label>
+        <input type="text" id="txtStudentIdOn" name="studentIdOn" value="" data-mini="true" disabled>
+
+        <label for="txtFirstnameOn">First Name:</label>
+        <input type="text" id="txtFirstnameOn" name="firstNameOn" value="" data-mini="true" disabled>
+
+        <label for="txtLastnameOn">Last Name:</label>
+        <input type="text" id="txtLastnameOn" name="lastNameOn" value="" data-mini="true" disabled>
+    </div>
+
+  </section>
+  <footer data-role="footer" data-position="fixed" data-theme="a">
+    <h1>&copy; Thomas Mathew</h1>
+  </footer>
+</div>
+<!-- endregion -->
+
+
+<!-- region Write page-->
+<div id="pageR">
+<div id="pageWrite" data-role="page">
+  <header data-role="header" data-position="fixed" data-theme="a">
+    <h1>Write</h1>
+    <div data-role="navbar" data-iconpos="top">
+      <ul>
+        <li><a href="#pageRead" data-icon="grid">Read</a></li>
+        <li><a href="#pageWrite" data-icon="edit" class="ui-btn-active ui-state-persist">Write</a></li>
+        <li><a href="#pageDelete" data-icon="delete">Delete</a></li>
+        <li><a href="#pageAddFaculty" data-icon="add">Add Faculty</a></li>
+        <li><a href="#viewFaculties" data-icon="add">List Faculties</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section data-role="content">
+    <div id="writeDiv">
+
+      <h4 id="writeStatusMessage"></h4>
+      <h2>Set</h2>
+      <label for="txtFirstNameSet">First Name:</label>
+      <input type="text" id="txtFirstNameSet" name="firstNameSet" value="" data-mini="true" data-clear-btn="true" placeholder="Enter First Name">
+      <button type="button" id="btnSave" name="btnSave" data-icon="plus" class="ui-btn-active">Save
+      </button>
+
+      <h2>Update</h2>
+      <label for="txtAndroidExp">Andrid Dev Experience:</label>
+      <input type="text" id="txtAndroidExp" name="txtAndroidExp" value="" data-mini="true" data-clear-btn="true" placeholder="Enter Android Dev Experience">
+      <button type="button" id="btnUpdateAndroid" name="btnUpdateAndroid" data-icon="plus" class="ui-btn-active">Update Android Experience
+      </button>
+
+      <label for="txtFirebaseExp">Firebase Experience:</label>
+      <input type="text" id="txtFirebaseExp" name="txtFirebaseExp" value="" data-mini="true" data-clear-btn="true" placeholder="Enter Firebase Experience">
+      <button type="button" id="btnUpdateFirebase" name="btnUpdateFirebase" data-icon="plus" class="ui-btn-active">Update Firebase Experience
+      </button>
+    </div>
+
+  </section>
+  <footer data-role="footer" data-position="fixed" data-theme="a">
+    <h1>&copy; Thomas Mathew</h1>
+  </footer>
+</div>
+</div>
+<!-- endregion -->
+
+
+<!-- region Delete page-->
+<div id="pageDelete" data-role="page">
+  <header data-role="header" data-position="fixed" data-theme="a">
+    <h1>Delete</h1>
+    <div data-role="navbar" data-iconpos="top">
+      <ul>
+        <li><a href="#pageRead" data-icon="grid">Read</a></li>
+        <li><a href="#pageWrite" data-icon="edit" >Write</a></li>
+        <li><a href="#pageDelete" data-icon="delete" class="ui-btn-active ui-state-persist">Delete</a></li>
+        <li><a href="#pageAddFaculty" data-icon="add">Add Faculty</a></li>
+        <li><a href="#viewFaculties" data-icon="add">List Faculties</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section data-role="content">
+    <div id="deleteDiv">
+      <h4 id="deleteStatusMessage"></h4>
+      <h2>Remove</h2>
+      <p>Delete data using remove function</p>
+      <button data-inline="true" id="btnDelete" name="btnDelete" data-icon="delete" class="ui-btn-active">Delete</button>
+
+      <h2>Null</h2>
+      <p>Setting a value to null also deletes all data at that node</p>
+      <button data-inline="true" id="btnSetNull" name="btnSetNull" data-icon="refresh" class="ui-btn-active">Set Null</button>
+    </div>
+  </section>
+  <footer data-role="footer" data-position="fixed" data-theme="a">
+    <h1>&copy; Thomas Mathew</h1>
+  </footer>
+</div>
+<!-- endregion -->
+
+<!-- region Add Faculty page-->
+<div id="pageAddFaculty" data-role="page">
+  <header data-role="header" data-position="fixed" data-theme="a">
+    <h1>Add Faculty</h1>
+    <div data-role="navbar" data-iconpos="top">
+      <ul>
+        <li><a href="#pageRead" data-icon="grid">Read</a></li>
+        <li><a href="#pageWrite" data-icon="edit">Write</a></li>
+        <li><a href="#pageDelete" data-icon="delete">Delete</a></li>
+        <li><a href="#pageAddFaculty" data-icon="add" class="ui-btn-active ui-state-persist">Add Faculty</a></li>
+        <li><a href="#viewFaculties" data-icon="add">List Faculties</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section data-role="content">
+    <div id="addDiv">
+
+      <h4 id="addStatusMessage"></h4>
+      <h2>Add Faculty</h2>
+      <label for="txtFacultyFName">First Name:</label>
+      <input type="text" id="txtFacultyFName" name="facultyFName" value="" data-mini="true" data-clear-btn="true" placeholder="Enter First Name">
+
+      <label for="txtFacultyLName">Last Name:</label>
+      <input type="text" id="txtFacultyLName" name="facultyLName" value="" data-mini="true" data-clear-btn="true" placeholder="Enter Last Name">
+
+      <label for="txtCourseCode">Course Code:</label>
+      <input type="text" id="txtCourseCode" name="courseCode" value="" data-mini="true" data-clear-btn="true" placeholder="Enter Course Code">
+
+      <label for="txtCourseName">Course Name:</label>
+      <input type="text" id="txtCourseName" name="courseName" value="" data-mini="true" data-clear-btn="true" placeholder="Enter Course Name">
+
+
+      <label for="txtProgramCode">Program Code:</label>
+      <input type="text" id="txtProgramCode" name="programCode" value="" data-mini="true" data-clear-btn="true" placeholder="Enter Program Code">
+
+      <label for="txtCampus">Campus:</label>
+      <input type="text" id="txtCampus" name="campus" value="" data-mini="true" data-clear-btn="true" placeholder="Enter Campus">
+
+      <label for="txtPhone">Phone Number:</label>
+      <input type="text" id="txtPhone" name="phone" value="" data-mini="true" data-clear-btn="true" placeholder="Enter Phone Number">
+
+      <button type="button" id="btnCreateFaculty" name="btnCreate" data-icon="plus" class="ui-btn-active">Add
+      </button>
+
+
+
+    </div>
+
+  </section>
+  <footer data-role="footer" data-position="fixed" data-theme="a">
+    <h1>&copy; Thomas Mathew</h1>
+  </footer>
+</div>
+<!-- endregion -->
+
+
+<!-- region View Faculties page-->
+<div id="viewFaculties" data-role="page">
+  <header data-role="header" data-position="fixed" data-theme="a">
+    <h1>List Faculties</h1>
+    <div data-role="navbar" data-iconpos="top">
+      <ul>
+        <li><a href="#pageRead" data-icon="grid">Read</a></li>
+        <li><a href="#pageWrite" data-icon="edit">Write</a></li>
+        <li><a href="#pageDelete" data-icon="delete">Delete</a></li>
+        <li><a href="#pageAddFaculty" data-icon="add">Add Faculty</a></li>
+        <li><a href="#viewFaculties" data-icon="add" class="ui-btn-active ui-state-persist">List Faculties</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section data-role="content">
+    <div id="viewDiv">
+
+      <h4 id="viewStatusMessage"></h4>
+      <h2>List of Faculties</h2>
+
+      <section data-role="content">
+        <ul id="lstViewFaculties" name="lstViewFaculties" data-role="listview" class="ui-listview-inset"
+            data-split-icon="gear">
+        </ul>
+      </section>
+
+
+    </div>
+
+  </section>
+  <footer data-role="footer" data-position="fixed" data-theme="a">
+    <h1>&copy; Thomas Mathew</h1>
+  </footer>
+</div>
+<!-- endregion -->
+
+
+<!-- region Firebase Scripts -->
+<script>
+  // Initialize Firebase
+  const firebaseConfig = {
+    // apiKey: "AIzaSyCClsRZw_cvDjkMJTMQ7Kt3k1ELZjyRUYY",
+    apiKey: "AIzaSyC2C3SOrVECp_vOOCHmmtHoRg-L1gEy-Dc",
+    authDomain: "info6127-7964100.firebaseapp.com",
+    databaseURL: "https://info6127-7964100-default-rtdb.firebaseio.com",
+    projectId: "info6127-7964100",
+    storageBucket: "info6127-7964100.appspot.com",
+    messagingSenderId: "326954990121",
+    appId: "1:326954990121:web:cc8c36e974e56fda493a38"
+
+  };
+ firebase.initializeApp(firebaseConfig);
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
