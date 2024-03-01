@@ -12,6 +12,9 @@ function init() {
     $("#btnSetNull").on("click", btnSetNull_click );
     $("#btnCreateFaculty").on("click", btnCreateFaculty_click );
     $("#viewFaculties").on("pageshow", viewFaculties_pageshow);
+    $("#btnSignup").on("click", btnSignup_click);
+    $("#btnLogin").on("click", btnLogin_click);
+
     listenforFacultyAdded();
 }
 
@@ -43,6 +46,21 @@ function btnCreateFaculty_click() {
 function viewFaculties_pageshow() {
     listExamples.readAllFaculties();
 }
+
+function btnSignup_click() {
+   signupUser()
+ 
+}
+function btnLogin_click() {
+   loginUser()
+ 
+}
+
+function loadAllPages() {
+    $.mobile.pageContainer.pagecontainer("change", "#pageRead");
+  
+ }
+ 
 
 
 

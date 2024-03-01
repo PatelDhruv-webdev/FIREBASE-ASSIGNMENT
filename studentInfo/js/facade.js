@@ -205,31 +205,56 @@ function listenforFacultyRemoved()
     });
 }
 
+function signupUser() {
+    var userName = $("#txtUserId").val();
+    var email = $("#txtnewEmailId").val();
+    var password = $("#txtNewPassword").val();
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            firebase.database().ref('toms/users/' + user.uid)
+                .set({ userName: userName, email: email }, (err) => {
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        console.log('User created in the real-time database');
+                        alert('User created');
+                    }
+                });
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error("Error signing up:", errorCode, errorMessage);
+            alert("Error signing up: " + errorMessage);
+        });
+}
 
+function  loginUser() {
 
+    var emailid = $("#txtEmailId").val();
+    var password = $("#txtPassword").val();
+    firebase.auth().signInWithEmailAndPassword(emailid, password)
+.then ((userCredential)  => {
+// Signed in
+        const user = userCredential.user;
+        console.log("User successfully logged in with e-mail: " + user.email + " having user id: "+ user.uid);
+        loadAllPages();
+        const dt  = new Date;
+        easternTime = dt. toLocaleString ( "en-US",{timeZone: "America/New_York"});
+        firebase.database().ref('toms/users/'* user.uid)
+        .update ({lastLogin: easternTime}, (err)  =>{
+        if(err){
+        console.error(err);
+        }
+        else{
+        console.log('User login updated in the real-time database');
+        }
+    })
+ 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+})
+}
 
 
 

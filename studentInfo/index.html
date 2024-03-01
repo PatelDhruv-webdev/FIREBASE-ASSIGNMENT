@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<>
+
 
   <meta charset="utf-8" />
   <meta name="format-detection" content="telephone=no" />
@@ -21,27 +21,78 @@
 
   <!-- Add additional services that you want to use -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
   <!-- endregion -->
 
   <link rel="stylesheet" href="css/index.css">
-  <script src="studentInfo/js/index.js"></script>
-  <script src="studentInfo/js/facade.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/facade.js"></script>
 
   <title>Firebase Demo</title>
-<
+
 
 <body>
+  region Login Page
+<div data-role="page" id="loginPage">
+  <div data-role="header">
+    <h1>Login</h1>
+  </div>
+  <div data-role="main" class="ui-content">
+    <label for="txtEmailId">Email-Id:</label>
+    <input type="text" name="txtEmailId" id="txtEmailId" placeholder="Enter E-mail Id">
+    <label for="txtPassword">Password:</label>
+    <input type="password" name="txtPassword" id="txtPassword" placeholder="Enter Password">
+
+    <button type="button" id="btnLogin" name="btnLogin" data-icon="plus" class="ui-btn ui-btn-b">Login
+    </button>
+
+    <a href="#signupPage" data-transition="slide">Create an account</a>
+  </div>
+</div>
+<!-- 
+region Signup Page --> 
+ <div data-role="page" id="signupPage">
+  <div data-role="header">
+    <h1>Signup</h1>
+  </div>
+  <div data-role="main" class="ui-content">
+
+    <label for="txtUserId">User Id:</label>
+    <input type="text" name="txtUserId" id="txtUserId" placeholder="Enter a User Id">
+    <label for="txtnewEmailId">Email-Id:</label>
+    <input type="text" name="txtnewEmailId" id="txtnewEmailId" placeholder="Enter E-mail Id">
+    <label for="txtNewPassword">Password:</label>
+    <input type="password" name="txtNewPassword" id="txtNewPassword" placeholder="Enter a password">
+
+    <fieldset data-role="controlgroup" data-type="horizontal">
+      <legend>User Role:</legend>
+      <select id = "drpUserRole">
+        <option value="choose"> --choose -- </option>
+        <option value="admin"> Admin </option>
+        <option value="user"> User </option>
+      </select>
+    </fieldset>
+
+    <button type="button" id="btnSignup" name="btnSignup" data-icon="plus" class="ui-btn ui-btn-b">Signup
+    </button>
+
+    <a href="#loginPage" data-transition="slide">Already have an account? Login</a>
+  </div>
+</div>
 <!-- region Read page-->
 <div id="pageRead" data-role="page">
   <header data-role="header" data-position="fixed" data-theme="a">
     <h1>Read</h1>
     <div data-role="navbar" data-iconpos="top">
       <ul>
-        <li><a href="#pageRead" data-icon="grid" class="ui-btn-active ui-state-persist">Read</a></li>
+        <li><a href="#pageRead" data-icon="grid" class="ui-btn-normal ui-state-persist">Read</a></li>
         <li><a href="#pageWrite" data-icon="edit">Write</a></li>
         <li><a href="#pageDelete" data-icon="delete">Delete</a></li>
         <li><a href="#pageAddFaculty" data-icon="add">Add Faculty</a></li>
         <li><a href="#viewFaculties" data-icon="add">List Faculties</a></li>
+        <li><a href="#logoutPage" data-icon="power" class="ui-btn-normal ui-state-persist">Logout</a></li>
+
       </ul>
     </div>
   </header>
@@ -86,10 +137,12 @@
     <div data-role="navbar" data-iconpos="top">
       <ul>
         <li><a href="#pageRead" data-icon="grid">Read</a></li>
-        <li><a href="#pageWrite" data-icon="edit" class="ui-btn-active ui-state-persist">Write</a></li>
+        <li><a href="#pageWrite" data-icon="edit" class="ui-btn-normal ui-state-persist">Write</a></li>
         <li><a href="#pageDelete" data-icon="delete">Delete</a></li>
         <li><a href="#pageAddFaculty" data-icon="add">Add Faculty</a></li>
         <li><a href="#viewFaculties" data-icon="add">List Faculties</a></li>
+        <li><a href="#logoutPage" data-icon="power" class="ui-btn-normal ui-state-persist">Logout</a></li>
+
       </ul>
     </div>
   </header>
@@ -133,9 +186,11 @@
       <ul>
         <li><a href="#pageRead" data-icon="grid">Read</a></li>
         <li><a href="#pageWrite" data-icon="edit" >Write</a></li>
-        <li><a href="#pageDelete" data-icon="delete" class="ui-btn-active ui-state-persist">Delete</a></li>
+        <li><a href="#pageDelete" data-icon="delete" class="ui-btn-normal ui-state-persist">Delete</a></li>
         <li><a href="#pageAddFaculty" data-icon="add">Add Faculty</a></li>
         <li><a href="#viewFaculties" data-icon="add">List Faculties</a></li>
+        <li><a href="#logoutPage" data-icon="power" class="ui-btn-normal ui-state-persist">Logout</a></li>
+
       </ul>
     </div>
   </header>
@@ -167,8 +222,10 @@
         <li><a href="#pageRead" data-icon="grid">Read</a></li>
         <li><a href="#pageWrite" data-icon="edit">Write</a></li>
         <li><a href="#pageDelete" data-icon="delete">Delete</a></li>
-        <li><a href="#pageAddFaculty" data-icon="add" class="ui-btn-active ui-state-persist">Add Faculty</a></li>
+        <li><a href="#pageAddFaculty" data-icon="add" class="ui-btn-normal ui-state-persist">Add Faculty</a></li>
         <li><a href="#viewFaculties" data-icon="add">List Faculties</a></li>
+        <li><a href="#logoutPage" data-icon="power" class="ui-btn-normal ui-state-persist">Logout</a></li>
+
       </ul>
     </div>
   </header>
@@ -225,7 +282,9 @@
         <li><a href="#pageWrite" data-icon="edit">Write</a></li>
         <li><a href="#pageDelete" data-icon="delete">Delete</a></li>
         <li><a href="#pageAddFaculty" data-icon="add">Add Faculty</a></li>
-        <li><a href="#viewFaculties" data-icon="add" class="ui-btn-active ui-state-persist">List Faculties</a></li>
+        <li><a href="#viewFaculties" data-icon="add" class="ui-btn-normal ui-state-persist">List Faculties</a></li>
+        <li><a href="#logoutPage" data-icon="power" class="ui-btn-normal ui-state-persist">Logout</a></li>
+
       </ul>
     </div>
   </header>
@@ -253,20 +312,44 @@
 <!-- endregion -->
 
 
+<div id="logoutPage" data-role="page" >
+  <div data-role="header">
+      <h1>Logout</h1>
+      <div data-role="navbar" data-iconpos="top">
+          <ul>
+              <li><a href="#pageRead" data-icon="grid">Read</a></li>
+              <li><a href="#pageWrite" data-icon="edit">Write</a></li>
+              <li><a href="#pageDelete" data-icon="delete">Delete</a></li>
+              <li><a href="#pageAddFaculty" data-icon="add">Add Faculty</a></li>
+              <li><a href="#viewFaculties" data-icon="add" >List Faculties</a></li>
+              <li><a href="#logoutPage" data-icon="power" class="ui-btn-active ui-state-persist">Logout</a></li>
+
+          </ul>
+      </div>
+  </div>
+  <div data-role="main" class="ui-content">
+      <h2>Are you sure you want to log out?</h2>
+      <button type="button" id="btnLogout" name="btnLogout" data-icon="lock" class="ui-btn-active">Logout
+      </button>
+
+      <button type="button" id="btnCancel" name="btnCancel" data-icon="check" data-rel="back">Cancel
+      </button>
+
+  </div>
+</div>
+<!-- endregion -->
 <!-- region Firebase Scripts -->
 <script>
   // Initialize Firebase
   const firebaseConfig = {
-    // apiKey: "AIzaSyCClsRZw_cvDjkMJTMQ7Kt3k1ELZjyRUYY",
-    apiKey: "AIzaSyC2C3SOrVECp_vOOCHmmtHoRg-L1gEy-Dc",
-    authDomain: "info6127-7964100.firebaseapp.com",
-    databaseURL: "https://info6127-7964100-default-rtdb.firebaseio.com",
-    projectId: "info6127-7964100",
-    storageBucket: "info6127-7964100.appspot.com",
-    messagingSenderId: "326954990121",
-    appId: "1:326954990121:web:cc8c36e974e56fda493a38"
-
-  };
+  apiKey: "AIzaSyCClsRZw_cvDjkMJTMQ7Kt3k1ELZjyRUYY",
+  authDomain: "info6127w24-1211047.firebaseapp.com",
+  databaseURL: "https://info6127w24-1211047-default-rtdb.firebaseio.com",
+  projectId: "info6127w24-1211047",
+  storageBucket: "info6127w24-1211047.appspot.com",
+  messagingSenderId: "394076927578",
+  appId: "1:394076927578:web:bd2ced1acc13e0b3734a63"
+};
  firebase.initializeApp(firebaseConfig);
 </script>
 </body>
