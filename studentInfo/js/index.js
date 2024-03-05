@@ -53,6 +53,8 @@ function btnSignup_click() {
 }
 function btnLogin_click() {
    loginUser()
+   getAnswer ()
+    uid()
  
 }
 

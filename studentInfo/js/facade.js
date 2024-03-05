@@ -232,34 +232,51 @@ function signupUser() {
 
 function  loginUser() {
 
-    var emailid = $("#txtEmailId").val();
-    var password = $("#txtPassword").val();
-    firebase.auth().signInWithEmailAndPassword(emailid, password)
-.then ((userCredential)  => {
-// Signed in
-        const user = userCredential.user;
-        console.log("User successfully logged in with e-mail: " + user.email + " having user id: "+ user.uid);
-        loadAllPages();
-        const dt  = new Date;
-        easternTime = dt. toLocaleString ( "en-US",{timeZone: "America/New_York"});
-        firebase.database().ref('toms/users/'* user.uid)
-        .update ({lastLogin: easternTime}, (err)  =>{
-        if(err){
-        console.error(err);
+    firebase.auth().signInWithEmailAndPassword("d_patel220035@fanshaweonline.ca", "1214419")
+      .then((userCredential) => {
+        // Logged in
+        var user = userCredential.user;
+        console.log("Logged in successfully");
+      })
+      .catch((error) => {
+        // Error
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.error("Login failed:", errorCode, errorMessage);
+      });
+    
+    }
+
+
+function getAnswer () {
+    firebase.database().ref('users/wr2GkefxSFQ4MkZGs6JKNYSsERV2').once('value')
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          var answer = snapshot.val().answer;
+          console.log("Your answer is:", answer);
+        } else {
+          console.log("No data available");
         }
-        else{
-        console.log('User login updated in the real-time database');
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
+
+    function uid(){
+
+        firebase.auth().onAuthStateChanged((user) => {
+          if (user) {
+            // User is logged in
+            var uid = user.uid;
+            console.log("UID:", uid);
+          } else {
+            // User is signed out
+            console.log("No user is logged in.");
+          }
+        });
+        
         }
-    })
- 
-
-})
-}
-
-
-
-
-
 
 
 
